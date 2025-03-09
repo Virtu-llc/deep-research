@@ -259,7 +259,7 @@ class GAIABenchmark(BaseBenchmark):
         return self._generate_summary()
     
 
-    def _prepare_task(self, task: Dict[strF, Any]) -> Tuple[bool, str]:
+    def _prepare_task(self, task: Dict[str, Any]) -> Tuple[bool, str]:
         r"""Prepare the task by validating and enriching its data."""
         if task["file_name"]:
             
