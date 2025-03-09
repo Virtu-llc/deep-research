@@ -249,8 +249,8 @@ class GAIABenchmark(BaseBenchmark):
 
             except Exception as e:
                 logger.error(f"Error in processing task: {e}")
-                
-    
+
+            os.makedirs(os.path.dirname(self.save_to), exist_ok=True)
             if save_result:
                 with open(self.save_to, 'w') as f:
                     json.dump(self._results, f, indent=4, ensure_ascii=False)
