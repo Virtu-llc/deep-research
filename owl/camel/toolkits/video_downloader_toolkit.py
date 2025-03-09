@@ -15,10 +15,12 @@
 import io
 import logging
 import re
+import atexit
 import tempfile
 from pathlib import Path
 from typing import List, Optional
 from urllib.parse import urlparse
+import shutil
 
 from PIL import Image
 
@@ -105,18 +107,22 @@ class VideoDownloaderToolkit(BaseToolkit):
                 f"Error creating directory {self._download_directory}: {e}"
             )
 
+        if self._cleanup:
+            atexit.register(self._cleanup_temp_dir)
         logger.info(f"Video will be downloaded to {self._download_directory}")
 
-    def __del__(self) -> None:
-        r"""Deconstructor for the VideoDownloaderToolkit class.
-
-        Cleans up the downloaded video if they are stored in a temporary
-        directory.
-        """
-        import shutil
-
-        if self._cleanup:
-            shutil.rmtree(self._download_directory, ignore_errors=True)
+    def _cleanup_temp_dir(self):
+        shutil.rmtree(self._download_directory, ignore_errors=True)
+    #
+    # def __del__(self) -> None:
+    #     r"""Deconstructor for the VideoDownloaderToolkit class.
+    #
+    #     Cleans up the downloaded video if they are stored in a temporary
+    #     directory.
+    #     """
+    #
+    #     if self._cleanup:
+    #         shutil.rmtree(self._download_directory, ignore_errors=True)
 
     def download_video(self, url: str) -> str:
         r"""Download the video and optionally split it into chunks.
