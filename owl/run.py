@@ -82,7 +82,7 @@ def construct_society(question: str) -> OwlRolePlaying:
 
 # Example case
 # question = "What was the volume in m^3 of the fish bag that was calculated in the University of Leicester paper `Can Hiccup Supply Enough Fish to Maintain a Dragon’s Diet?` "
-question = 'Analyze the sentiment of recent tweets about AI coding copilot'
+question = 'Analyze the sentiment of recent reddit posts about AI coding copilot'
 
 society = construct_society(question)
 answer, chat_history, token_count = run_society(society)
